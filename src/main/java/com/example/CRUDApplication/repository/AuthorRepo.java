@@ -16,7 +16,7 @@ public interface AuthorRepo extends JpaRepository<Author, Integer> , JpaSpecific
 
 
    List<Author> findByName(String name);
-   List<Author> findDescriptionContains(String desc);
+   List<Author> findByDescriptionContains(String desc);
 
    @Query(value = "select * from authors where description like :%desc%" , nativeQuery = true)
    List<Author> getAllWhereDescriptionLike(String desc);

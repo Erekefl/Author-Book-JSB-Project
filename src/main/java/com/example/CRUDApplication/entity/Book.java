@@ -21,8 +21,8 @@ public class Book {
 
     private  Integer quantity;
 
-    @ManyToOne
-    private Author author;
+//    @ManyToOne
+//    private Author author;
 
 
 

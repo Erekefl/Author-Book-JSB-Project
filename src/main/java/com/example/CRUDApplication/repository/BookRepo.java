@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface BookRepo extends JpaRepository<Book,Integer> {
     Optional<Book> findFirstByName(String name);
     List<Book> findByName(String name);
-    @Query(value = "select * from books where title=:tit and description like :%desc%",nativeQuery = true)
-    List<Book> getByTitleAndDescriptionLike(@Param("tit") String title,@Param("des") String description);
+    @Query(value = "select * from books where title=:tit and description like %:desc%",nativeQuery = true)
+    List<Book> getByTitleAndDescriptionLike(@Param("tit") String title,@Param("desc") String description);
 
-    @Query(value = "select * from books where description like :%desc%",nativeQuery = true)
+    @Query(value = "select * from books where description like %:desc%",nativeQuery = true)
     List<Book> getAllWhereDescriptionLike(String desc);
 }

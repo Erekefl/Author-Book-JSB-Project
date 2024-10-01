@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+
 @Entity
-@Table(name = "author")
+@Table(name = "authors")
 @Getter
 @Setter
 public class Author {
@@ -19,6 +21,6 @@ public class Author {
     private String description;
 
 
-    @OneToMany
-    private Book book;
+//    @OneToMany
+//    private HashSet<Book> books;
 }

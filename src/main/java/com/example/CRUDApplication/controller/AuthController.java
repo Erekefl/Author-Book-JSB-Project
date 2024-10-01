@@ -18,7 +18,7 @@ public class AuthController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam String name,@RequestParam String description ){
+    public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam(required=false) String name,@RequestParam( required=false) String description ){
         return ResponseEntity.ok(authorService.getAllAuthors(name,description));
         //неге статус ок баскаларда статус
     }
