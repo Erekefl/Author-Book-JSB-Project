@@ -2,11 +2,14 @@ package com.example.CRUDApplication.service.impl;
 
 import com.example.CRUDApplication.dto.AuthorDTO;
 import com.example.CRUDApplication.entity.Author;
+import com.example.CRUDApplication.entity.specifications.AuthorSpecification;
 import com.example.CRUDApplication.mapper.AuthorMapper;
 import com.example.CRUDApplication.repository.AuthorRepo;
 import com.example.CRUDApplication.service.AuthorService;
 import com.example.CRUDApplication.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,23 +28,18 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<AuthorDTO> getAllAuthors(String name,String description) {
-     List<Author> authors = new ArrayList<>();
+         List<Author> authors = new ArrayList<>();
 
-     if (StringUtil.stringIsNullOrEmpty(name) && StringUtil.stringIsNullOrEmpty(description)){
-         authors = authorRepo.findAll();
-     }
-     if (!StringUtil.stringIsNullOrEmpty(name) && StringUtil.stringIsNullOrEmpty(description)){
-         authors = authorRepo.findByName(name);
-     }
-     if (StringUtil.stringIsNullOrEmpty(name) && !StringUtil.stringIsNullOrEmpty(description)){
-         authors = authorRepo.getAllWhereDescriptionLike(description);
-     }
+         Specification<Author> spec = Specification.where(null);
 
-     // орындалган тапсырма
-     if (!StringUtil.stringIsNullOrEmpty(name) && !StringUtil.stringIsNullOrEmpty(description)){
-         authors = authorRepo.getAuthorsByNameAndDescriptionLike(name,description);
+         if (!StringUtil.stringIsNullOrEmpty(name) && StringUtil.stringIsNullOrEmpty(description)){
+             spec.and(AuthorSpecification.nameLike(name));
+         }
+         if (StringUtil.stringIsNullOrEmpty(name) && !StringUtil.stringIsNullOrEmpty(description)){
+             spec.and(AuthorSpecification.descriptionLike(description));
+         }
 
-     }
+         authors = authorRepo.findAll(spec);
          return authorMapper.toDto(authors);
     }
 

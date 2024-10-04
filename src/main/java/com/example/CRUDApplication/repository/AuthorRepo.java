@@ -15,11 +15,11 @@ public interface AuthorRepo extends JpaRepository<Author, Integer> , JpaSpecific
 
 
 
-   List<Author> findByName(String name);
-   List<Author> findByDescriptionContains(String desc);
-
-   @Query(value = "select * from authors where description like %:desc%" , nativeQuery = true)
-   List<Author> getAllWhereDescriptionLike(String desc);
+//   List<Author> findByName(String name);
+//   List<Author> findByDescriptionContains(String desc);
+//
+//   @Query(value = "select * from authors where description like %:desc%" , nativeQuery = true)
+//   List<Author> getAllWhereDescriptionLike(String desc);
 
 
    @Query(value = "select * from authors where name=:name and description like %:desc%",nativeQuery = true)

@@ -2,10 +2,13 @@ package com.example.CRUDApplication.controller;
 
 import com.example.CRUDApplication.dto.AuthorDTO;
 import com.example.CRUDApplication.service.AuthorService;
+import com.example.CRUDApplication.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,6 +16,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/author")
 @RequiredArgsConstructor
+
 public class AuthorController {
     private final AuthorService authorService;
 
@@ -24,8 +28,18 @@ public class AuthorController {
         //неге статус ок баскаларда статус
     }
 
-    @PostMapping("/")
-    public ResponseEntity<AuthorDTO> createNewAuthor(@RequestBody AuthorDTO authorDTO){
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id){
+        return ResponseEntity.ok(authorService.getAuthorById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createNewAuthor(@Validated @RequestBody AuthorDTO authorDTO){
+//        if(StringUtil.stringIsNullOrEmpty(authorDTO.getName())){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("")
+//        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(authorService.createAuthor(authorDTO));
     }
 
