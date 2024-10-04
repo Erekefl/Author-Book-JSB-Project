@@ -10,9 +10,11 @@ import java.util.Optional;
 
 public interface BookService{
 
-    List<BookDTO> getAllBooks(String name, String description);
+    List<BookDTO> getAllBooks(String title, String description);
 
     BookDTO getBookById(int id);
+
+
 
     BookDTO getBookByName(String name);
 

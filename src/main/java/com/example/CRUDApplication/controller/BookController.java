@@ -1,19 +1,14 @@
 package com.example.CRUDApplication.controller;
 
 import com.example.CRUDApplication.dto.BookDTO;
-import com.example.CRUDApplication.entity.Book;
-import com.example.CRUDApplication.repository.BookRepo;
 import com.example.CRUDApplication.service.BookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 @RequestMapping("/book")
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +17,9 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<BookDTO>> getAllBook(@RequestParam String name, @RequestParam(name = "desc")String description){
-      return ResponseEntity.ok(bookService.getAllBooks(name,description));
+    public ResponseEntity<List<BookDTO>> getAllBook(@RequestParam(required = false) String title,
+                                                    @RequestParam(required = false)String description){
+      return ResponseEntity.ok(bookService.getAllBooks(title,description));
     }
 
     @GetMapping("/{id}")

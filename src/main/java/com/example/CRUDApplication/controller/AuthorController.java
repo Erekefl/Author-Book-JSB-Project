@@ -13,12 +13,13 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/author")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthorController {
     private final AuthorService authorService;
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam(required=false) String name,@RequestParam( required=false) String description ){
+    public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam(required=false) String name,
+                                                        @RequestParam( required=false) String description ){
         return ResponseEntity.ok(authorService.getAllAuthors(name,description));
         //неге статус ок баскаларда статус
     }

@@ -29,12 +29,12 @@ public class BookServiceImpl implements BookService {
             books = bookRepo.findAll();
         }
         if ((!StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description))){
-            books = bookRepo.findByName(title);
+            books = bookRepo.findByTitle(title);
         }
         if (StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
             books = bookRepo.getAllWhereDescriptionLike(description);
         }
-        if (!StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description)){
+        if (!StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
             books = bookRepo.getByTitleAndDescriptionLike(title, description);
         }
         return bookMapper.toDto(books);
