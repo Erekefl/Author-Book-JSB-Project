@@ -7,6 +7,7 @@ import com.example.CRUDApplication.repository.BookRepo;
 import com.example.CRUDApplication.service.BookService;
 import com.example.CRUDApplication.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,18 +26,26 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDTO> getAllBooks(String title,String description) {
         List<Book> books = new ArrayList<>();
-        if(StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description)){
-            books = bookRepo.findAll();
-        }
-        if ((!StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description))){
-            books = bookRepo.findByTitle(title);
-        }
-        if (StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
-            books = bookRepo.getAllWhereDescriptionLike(description);
-        }
-        if (!StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
-            books = bookRepo.getByTitleAndDescriptionLike(title, description);
-        }
+
+        Specification<Book> spec = Specification.where(null);
+
+
+//        if(StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description)){
+//            books = bookRepo.findAll();
+//        }
+
+
+//        if ((!StringUtil.stringIsNullOrEmpty(title) && StringUtil.stringIsNullOrEmpty(description))){
+//            books = bookRepo.findByTitle(title);
+//        }
+//        if (StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
+//            books = bookRepo.getAllWhereDescriptionLike(description);
+//        }
+//        if (!StringUtil.stringIsNullOrEmpty(title) && !StringUtil.stringIsNullOrEmpty(description)){
+//            books = bookRepo.getByTitleAndDescriptionLike(title, description);
+//        }
+
+        books = bookRepo.findAll(spec);
         return bookMapper.toDto(books);
     }
 

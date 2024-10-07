@@ -45,11 +45,11 @@ public class AuthorController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable int id,@RequestBody AuthorDTO authorDTO){
+    public ResponseEntity<?> updateAuthor(@PathVariable int id,@RequestBody AuthorDTO authorDTO){
         try{
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(authorService.updateAuthor(id,authorDTO));
         }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 

@@ -23,12 +23,12 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable int id){
+    public ResponseEntity<BookDTO> getBookById(@PathVariable int id){
     BookDTO bookData = bookService.getBookById(id);
     try {
-        return ResponseEntity.status(HttpStatus.OK).body("kitap bar");
+        return ResponseEntity.status(HttpStatus.OK).body(bookData);
     }catch (NoSuchElementException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("kitap tabilmadi");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 //            bookRepo.findById(id);
 
@@ -48,12 +48,12 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> updateBookById(@PathVariable int id, @RequestBody BookDTO bookDTO){
+    public ResponseEntity<?> updateBookById(@PathVariable int id, @RequestBody BookDTO bookDTO){
 
         try {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(bookService.updateBook(id,bookDTO));
         }catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bundy kitap jok");
         }
 //    Optional<Book> oldBookData = bookRepo.findById(id);
 //
@@ -77,7 +77,7 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("book successfully deleted");
 //            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (NoSuchElementException e) {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bundy kitap jok");
         }
     }
 

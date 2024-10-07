@@ -2,7 +2,7 @@ package com.example.CRUDApplication.service.impl;
 
 import com.example.CRUDApplication.dto.AuthorDTO;
 import com.example.CRUDApplication.entity.Author;
-import com.example.CRUDApplication.entity.specifications.AuthorSpecification;
+//import com.example.CRUDApplication.entity.specifications.AuthorSpecification;
 import com.example.CRUDApplication.mapper.AuthorMapper;
 import com.example.CRUDApplication.repository.AuthorRepo;
 import com.example.CRUDApplication.service.AuthorService;
@@ -32,12 +32,12 @@ public class AuthorServiceImpl implements AuthorService {
 
          Specification<Author> spec = Specification.where(null);
 
-         if (!StringUtil.stringIsNullOrEmpty(name) && StringUtil.stringIsNullOrEmpty(description)){
-             spec.and(AuthorSpecification.nameLike(name));
-         }
-         if (StringUtil.stringIsNullOrEmpty(name) && !StringUtil.stringIsNullOrEmpty(description)){
-             spec.and(AuthorSpecification.descriptionLike(description));
-         }
+//         if (!StringUtil.stringIsNullOrEmpty(name) && StringUtil.stringIsNullOrEmpty(description)){
+//             spec.and(AuthorSpecification.nameLike(name));
+//         }
+//         if (StringUtil.stringIsNullOrEmpty(name) && !StringUtil.stringIsNullOrEmpty(description)){
+//             spec.and(AuthorSpecification.descriptionLike(description));
+//         }
 
          authors = authorRepo.findAll(spec);
          return authorMapper.toDto(authors);
@@ -79,6 +79,7 @@ public class AuthorServiceImpl implements AuthorService {
         if(existingEntity.isPresent()){
             var entity = existingEntity.get();
             entity.setName(authorDTO.getName());
+            entity.setDescription(authorDTO.getDescription());
             var resultEntity = authorRepo.save(entity);
             return authorMapper.toDto(resultEntity);
         }else {
