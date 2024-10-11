@@ -4,6 +4,7 @@ import com.example.CRUDApplication.dto.AuthorDTO;
 import com.example.CRUDApplication.service.AuthorService;
 import com.example.CRUDApplication.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,13 +25,23 @@ public class AuthorController {
     @GetMapping("/all")
     public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam(required=false) String name,
                                                         @RequestParam( required=false) String description ){
-        return ResponseEntity.ok(authorService.getAllAuthors(name,description));
-        //неге статус ок баскаларда статус
+        try {
+            return ResponseEntity.ok(authorService.getAllAuthors(name,description));
+            //неге статус ок баскаларда статус
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            //throw new BadRequestException("skjdjksdhkfhkjs");
+        }
+
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id){
+        try {
+
+        }
         return ResponseEntity.ok(authorService.getAuthorById(id));
     }
 
