@@ -24,26 +24,26 @@ public class AuthorController {
 
     @GetMapping("/all")
     public ResponseEntity<List<AuthorDTO>> getAllAuthor(@RequestParam(required=false) String name,
-                                                        @RequestParam( required=false) String description ){
+                                                        @RequestParam( required=false) String description ) throws BadRequestException {
         try {
             return ResponseEntity.ok(authorService.getAllAuthors(name,description));
             //неге статус ок баскаларда статус
         }
         catch (Exception ex){
             ex.printStackTrace();
-            //throw new BadRequestException("skjdjksdhkfhkjs");
+            throw new BadRequestException("skjdjksdhkfhkjs");
         }
 
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id){
-        try {
-
-        }
-        return ResponseEntity.ok(authorService.getAuthorById(id));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id){
+//        try {
+//
+//        }
+//        return ResponseEntity.ok(authorService.getAuthorById(id));
+//    }
 
     @PostMapping
     public ResponseEntity<?> createNewAuthor(@Validated @RequestBody AuthorDTO authorDTO){

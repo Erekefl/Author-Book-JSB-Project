@@ -4,6 +4,7 @@ import com.example.CRUDApplication.entity.Role;
 import com.example.CRUDApplication.entity.User;
 import com.example.CRUDApplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -60,6 +61,7 @@ public class UserService {
      *
      * @return пользователь
      */
+    @Bean
     public UserDetailsService userDetailsService() {
         return this::getByUsername;
     }
